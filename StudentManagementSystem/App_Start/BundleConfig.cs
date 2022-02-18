@@ -24,7 +24,16 @@ namespace StudentManagementSystem
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/font-awesome.css",
+                      "~/Content/Site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/admin/css").Include(
+                      "~/Content/admin/adminlte.min.css",
+                      "~/Content/admin/ionicons.min.css",
+                      "~/Content/admin/adminlte.min.css",
+                      "~/Content/admin/adminlte.min.css",
+                      "~/Content/admin/adminlte.min.css",
+                      "~/Content/admin/adminlte.min.css"));
         }
     }
 }
