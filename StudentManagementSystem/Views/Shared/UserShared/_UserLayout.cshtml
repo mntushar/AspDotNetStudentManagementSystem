@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+
+<div class="container body-content">
+    @*Rendering navbar page*@
+    @RenderPage("~/Views/Shared/UserShared/Navbar.cshtml")
+
+    @RenderBody()
+
+    @*Rendering footer page*@
+    @RenderPage("~/Views/Shared/UserShared/Footer.cshtml")
+</div>
