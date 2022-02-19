@@ -10,7 +10,7 @@ namespace StudentManagementSystem.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Department Name")]
         public string DeptName { get; set; }
         public virtual List<StudentModel> Students { get; set; }
     }

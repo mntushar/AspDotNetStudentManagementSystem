@@ -24,7 +24,7 @@ namespace StudentManagementSystem
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/font-awesome.css",
+                      "~/Content/fontawesome.css",
                       "~/Content/Site.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin/css").Include(
@@ -35,7 +35,10 @@ namespace StudentManagementSystem
                       "~/Content/admin/dist/css/adminlte.min.css",
                       "~/Content/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css",
                       "~/Content/admin/plugins/daterangepicker/daterangepicker.css",
-                      "~/Content/admin/plugins/summernote/summernote-bs4.min.css"));
+                      "~/Content/admin/plugins/summernote/summernote-bs4.min.css",
+                      "~/Content/admin/plugins/jsgrid/jsgrid.min.css",
+                      "~/Content/admin/plugins/jsgrid/jsgrid-theme.min.css",
+                      "~/Content/admin/dist/css/adminlte.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin/js").Include(
                       "~/Content/admin/plugins/jquery-ui/jquery-ui.min.js",
@@ -49,7 +52,9 @@ namespace StudentManagementSystem
                       "~/Content/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js",
                       "~/Content/admin/dist/js/adminlte.js",
                       "~/Content/admin/dist/js/demo.js",
-                      "~/Content/admin/dist/js/pages/dashboard.js"));
+                      "~/Content/admin/dist/js/pages/dashboard.js",
+                      "~/Content/admin/plugins/jsgrid/jsgrid.min.js",
+                      "~/Content/admin/dist/js/adminlte.min.js"));
         }
     }
 }

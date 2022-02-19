@@ -10,4 +10,10 @@
 
     @*Rendering footer page*@
     @RenderPage("~/Views/Shared/UserShared/Footer.cshtml")
+
+
+    @section scripts
+    {
+        @RenderSection("userscripts", required: false)
+    }
 </div>

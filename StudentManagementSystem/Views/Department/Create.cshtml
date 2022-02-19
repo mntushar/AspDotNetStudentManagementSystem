@@ -1,0 +1,45 @@
+﻿@model StudentManagementSystem.Models.DepartmentModels
+
+@{
+    ViewBag.Title = ViewBag.title;
+    Layout = "~/Views/Shared/AdminShared/_AdminLayout.cshtml";
+}
+
+
+<div class="content">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">Department Form</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form class="form-horizontal" method="post">
+            @Html.AntiForgeryToken()
+            <div class="card-body">
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.DeptName, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.DeptName, new { @class = "form-control", placeholder = "Enter department name" })
+                        @Html.ValidationMessageFor(model => model.DeptName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button type="submit" class="btn btn-info">Submit</button>
+            </div>
+            <!-- /.card-footer -->
+        </form>
+    </div>
+    <div>
+        @Html.ActionLink("Back to List", "DepartmentList")
+    </div>
+</div>
+
+
+
+@section adminscripts
+{
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+}

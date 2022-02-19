@@ -5,13 +5,19 @@
 <div class="wrapper">
     <!-- Navbar -->
     @RenderPage("~/Views/Shared/AdminShared/Navbar.cshtml")
-    
+
 
     <!-- Main Sidebar Container -->
     @RenderPage("~/Views/Shared/AdminShared/MainSidebar.cshtml")
 
-    <!--Dynamic body -->
-    @RenderBody()
+    <div class="content-wrapper">
+        <!--Content Header-->
+        @RenderPage("~/Views/Shared/AdminShared/ContentHeader.cshtml")
+
+        <!--Dynamic body -->
+        @RenderBody()
+
+    </div>
 
     <!--Footer-->
     @RenderPage("~/Views/Shared/AdminShared/Footer.cshtml")
@@ -21,5 +27,11 @@
         <!-- Control sidebar content goes here -->
     </aside>
     <!-- /.control-sidebar -->
+    
+
+    @section scripts
+    {
+        @RenderSection("adminscripts", required: false)
+    }
 </div>
 
