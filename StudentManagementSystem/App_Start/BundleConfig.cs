@@ -28,12 +28,28 @@ namespace StudentManagementSystem
                       "~/Content/Site.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin/css").Include(
-                      "~/Content/admin/adminlte.min.css",
-                      "~/Content/admin/ionicons.min.css",
-                      "~/Content/admin/adminlte.min.css",
-                      "~/Content/admin/adminlte.min.css",
-                      "~/Content/admin/adminlte.min.css",
-                      "~/Content/admin/adminlte.min.css"));
+                      "~/Content/admin/plugins/fontawesome-free/css/all.min.css",
+                      "~/Content/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css",
+                      "~/Content/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css",
+                      "~/Content/admin/plugins/jqvmap/jqvmap.min.css",
+                      "~/Content/admin/dist/css/adminlte.min.css",
+                      "~/Content/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css",
+                      "~/Content/admin/plugins/daterangepicker/daterangepicker.css",
+                      "~/Content/admin/plugins/summernote/summernote-bs4.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/admin/js").Include(
+                      "~/Content/admin/plugins/jquery-ui/jquery-ui.min.js",
+                      "~/Content/admin/plugins/chart.js/Chart.min.js",
+                      "~/Content/admin/plugins/sparklines/sparkline.js",
+                      "~/Content/admin/plugins/jqvmap/jquery.vmap.min.js",
+                      "~/Content/admin/plugins/jqvmap/maps/jquery.vmap.usa.js",
+                      "~/Content/admin/plugins/moment/moment.min.js",
+                      "~/Content/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js",
+                      "~/Content/admin/plugins/summernote/summernote-bs4.min.js",
+                      "~/Content/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js",
+                      "~/Content/admin/dist/js/adminlte.js",
+                      "~/Content/admin/dist/js/demo.js",
+                      "~/Content/admin/dist/js/pages/dashboard.js"));
         }
     }
 }
