@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -16,9 +17,10 @@ namespace StudentManagementSystem.Models
         [Required]
         public DateTime DateOfBirth { get; set; }
 
-        //[Required]
-        //public int DeptId { get; set; }
+        [Required]
+        public int DeptId { get; set; }
 
+        [ForeignKey("DeptId")]
         public virtual DepartmentModels Department { get; set; }
     }
 }

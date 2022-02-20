@@ -7,13 +7,13 @@ namespace StudentManagementSystem.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class updateDeparmentModel : IMigrationMetadata
+    public sealed partial class addRelStudentAndDept : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(updateDeparmentModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addRelStudentAndDept));
         
         string IMigrationMetadata.Id
         {
-            get { return "202202191105140_updateDeparmentModel"; }
+            get { return "202202200720350_addRelStudentAndDept"; }
         }
         
         string IMigrationMetadata.Source
