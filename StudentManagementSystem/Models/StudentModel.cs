@@ -19,10 +19,13 @@ namespace StudentManagementSystem.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
-        [Required, Display(Name="Department Name")]
+        [Required, Display(Name = "Department Name")]
+        [ForeignKey("Department")]
         public int DeptId { get; set; }
 
-        [ForeignKey("DeptId")]
+
+        //navigration proprty
         public virtual DepartmentModels Department { get; set; }
+        public virtual StudentRegistrationModels StudentRegistration { get; set; }
     }
 }
