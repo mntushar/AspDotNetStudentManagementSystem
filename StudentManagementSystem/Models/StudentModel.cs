@@ -15,9 +15,11 @@ namespace StudentManagementSystem.Models
         public string Name { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
-        [Required]
+        [Required, Display(Name="Department Name")]
         public int DeptId { get; set; }
 
         [ForeignKey("DeptId")]

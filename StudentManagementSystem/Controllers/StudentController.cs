@@ -20,6 +20,13 @@ namespace StudentManagementSystem.Controllers
             ViewBag.title = "Student";
         }
 
+        private SelectList AllDeparment()
+        {
+            SelectList allDepartment = new SelectList(db.Department, "Id", "DeptName");
+
+            return allDepartment;
+        }
+
         // GET: Student
         public ActionResult StudentList()
         {
@@ -44,6 +51,7 @@ namespace StudentManagementSystem.Controllers
         // GET: Student/Create
         public ActionResult Create()
         {
+            ViewBag.departments = AllDeparment();
             return View();
         }
 
@@ -52,31 +60,38 @@ namespace StudentManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,DateOfBirth,DeptId")] StudentModel studentModel)
+        public ActionResult Create([Bind(Include = "Id,Name,DateOfBirth,DeptId")] StudentModel student)
         {
+            ViewBag.departments = AllDeparment();
             if (ModelState.IsValid)
             {
-                db.Student.Add(studentModel);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                DepartmentModels department = db.Department.Find(student.DeptId);
+                if(department != null)
+                {
+                    db.Student.Add(student);
+                    db.SaveChanges();
+                    return RedirectToAction("StudentList");
+                }
+                ModelState.AddModelError(nameof(StudentModel.DeptId), "Please select department");
             }
 
-            return View(studentModel);
+            return View(student);
         }
 
         // GET: Student/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.departments = AllDeparment();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StudentModel studentModel = db.Student.Find(id);
-            if (studentModel == null)
+            StudentModel student = db.Student.Find(id);
+            if (student == null)
             {
                 return HttpNotFound();
             }
-            return View(studentModel);
+            return View("Create", student);
         }
 
         // POST: Student/Edit/5
@@ -84,15 +99,21 @@ namespace StudentManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,DateOfBirth,DeptId")] StudentModel studentModel)
+        public ActionResult Edit([Bind(Include = "Id,Name,DateOfBirth,DeptId")] StudentModel student)
         {
+            ViewBag.departments = AllDeparment();
             if (ModelState.IsValid)
             {
-                db.Entry(studentModel).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                DepartmentModels department = db.Department.Find(student.DeptId);
+                if(student != null)
+                {
+                    db.Entry(student).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("StudentList");
+                }
+                ModelState.AddModelError(nameof(StudentModel.DeptId), "Please selsect department");
             }
-            return View(studentModel);
+            return View("Create", student);
         }
 
         // GET: Student/Delete/5
@@ -107,7 +128,7 @@ namespace StudentManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-            return View(studentModel);
+            return View("Details", studentModel);
         }
 
         // POST: Student/Delete/5
@@ -118,7 +139,7 @@ namespace StudentManagementSystem.Controllers
             StudentModel studentModel = db.Student.Find(id);
             db.Student.Remove(studentModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("StudentList");
         }
 
         protected override void Dispose(bool disposing)

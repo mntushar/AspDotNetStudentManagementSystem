@@ -13,7 +13,7 @@
                     <h3 class="card-title">Department List</h3>
                 </div>
                 <div class="col-6 text-right">
-                    @Html.ActionLink("Create New", "Create", "Department")
+                    @Html.ActionLink("Create New", "Create", "Student")
                 </div>
             </div>
         </div>
@@ -23,8 +23,10 @@
                 <div class="jsgrid-grid-header jsgrid-header-scrollbar">
                     <table class="jsgrid-table">
                         <tr class="jsgrid-header-row">
-                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 150px;">@Html.DisplayNameFor(model => model.DeptName)</th>
-                            <th class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable" style="width: 50px;">Action</th>
+                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 150px;">@Html.DisplayNameFor(model => model.Name)</th>
+                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 150px;">@Html.DisplayNameFor(model => model.Department)</th>
+                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 150px;">@Html.DisplayNameFor(model => model.DateOfBirth)</th>
+                            <th class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable" style="width: 100px;">Action</th>
                         </tr>
                     </table>
                 </div>
@@ -32,20 +34,26 @@
                 <div class="jsgrid-grid-body">
                     <table class="jsgrid-table">
                         <tbody>
-                            @foreach (var dept in Model)
+                            @foreach (var student in Model)
                             {
-                                <tr class="jsgrid-row">
+                            <tr class="jsgrid-row">
 
-                                    <td class="jsgrid-cell" style="width: 150px;">
-                                        @Html.DisplayFor(modelItem => dept.DeptName)
-                                    </td>
-                                    <td class="jsgrid-cell jsgrid-align-right" style="width: 50px;">
-                                        @Html.ActionLink("Edit", "Edit", new { id = dept.Id }) |
-                                        @Html.ActionLink("Details", "Details", new { id = dept.Id }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = dept.Id })
-                                    </td>
+                                <td class="jsgrid-cell" style="width: 150px;">
+                                    @Html.DisplayFor(modelItem => student.Name)
+                                </td>
+                                <td class="jsgrid-cell" style="width: 150px;">
+                                    @Html.DisplayFor(modelItem => student.Department.DeptName)
+                                </td>
+                                <td class="jsgrid-cell" style="width: 150px;">
+                                    @Html.DisplayFor(modelItem => student.DateOfBirth)
+                                </td>
+                                <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;">
+                                    @Html.ActionLink("Edit", "Edit", new { id = student.Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = student.Id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = student.Id })
+                                </td>
 
-                                </tr>
+                            </tr>
                             }
 
                         </tbody>
