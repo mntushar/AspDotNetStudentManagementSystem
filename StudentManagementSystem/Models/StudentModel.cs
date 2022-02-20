@@ -16,8 +16,8 @@ namespace StudentManagementSystem.Models
         [Required]
         public DateTime DateOfBirth { get; set; }
 
-        [Required]
-        public int DeptId { get; set; }
+        //[Required]
+        //public int DeptId { get; set; }
 
         public virtual DepartmentModels Department { get; set; }
     }

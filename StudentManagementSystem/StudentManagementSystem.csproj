@@ -173,16 +173,13 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202202191052532_addDepartmentModel.cs" />
     <Compile Include="Migrations\202202191052532_addDepartmentModel.designer.cs">
       <DependentUpon>202202191052532_addDepartmentModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202191059184_addStudentModel.cs" />
-    <Compile Include="Migrations\202202191059184_addStudentModel.designer.cs">
-      <DependentUpon>202202191059184_addStudentModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202202191105140_updateDeparmentModel.cs" />
     <Compile Include="Migrations\202202191105140_updateDeparmentModel.designer.cs">
@@ -2502,6 +2499,11 @@
     <Content Include="webfonts\fa-brands-400.woff" />
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="Views\Student\Create.cshtml" />
+    <Content Include="Views\Student\Delete.cshtml" />
+    <Content Include="Views\Student\Details.cshtml" />
+    <Content Include="Views\Student\Edit.cshtml" />
+    <Content Include="Views\Student\StudentList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2514,9 +2516,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202202191052532_addDepartmentModel.resx">
       <DependentUpon>202202191052532_addDepartmentModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202191059184_addStudentModel.resx">
-      <DependentUpon>202202191059184_addStudentModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202191105140_updateDeparmentModel.resx">
       <DependentUpon>202202191105140_updateDeparmentModel.cs</DependentUpon>

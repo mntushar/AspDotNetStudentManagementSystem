@@ -27,12 +27,10 @@
             <!-- /.card-body -->
             <div class="card-footer">
                 <button type="submit" class="btn btn-info">Submit</button>
+                @Html.ActionLink("Back to List", "DepartmentList", "Department", new {@class = "float-right" })
             </div>
             <!-- /.card-footer -->
         </form>
-    </div>
-    <div>
-        @Html.ActionLink("Back to List", "DepartmentList")
     </div>
 </div>
 
