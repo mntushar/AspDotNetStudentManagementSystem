@@ -12,6 +12,9 @@ namespace StudentManagementSystem.Models
 
         [Required, Display(Name = "Department Name")]
         public string DeptName { get; set; }
+
+
+        //navigration proprty
         public virtual List<StudentModel> Students { get; set; }
     }
 }
