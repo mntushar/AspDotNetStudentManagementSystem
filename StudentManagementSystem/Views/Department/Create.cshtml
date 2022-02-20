@@ -17,9 +17,9 @@
             @Html.AntiForgeryToken()
             <div class="card-body">
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.DeptName, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    @Html.LabelFor(model => model.DeptName, new { @class = "col-sm-2 col-form-label" })
                     <div class="col-sm-10">
-                        @Html.EditorFor(model => model.DeptName, new { @class = "form-control", placeholder = "Enter department name" })
+                        @Html.EditorFor(model => model.DeptName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter department name" }})
                         @Html.ValidationMessageFor(model => model.DeptName, "", new { @class = "text-danger" })
                     </div>
                 </div>
