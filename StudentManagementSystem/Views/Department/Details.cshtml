@@ -22,10 +22,6 @@
         </div>
         <div class="card-body">
             <dl class="dl-horizontal text-center">
-                <p>
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-                    @Html.ActionLink("Back to List", "DepartmentList")
-                </p>
                 <dt>
                     @Html.DisplayNameFor(model => model.DeptName)
                 </dt>
@@ -34,6 +30,10 @@
                     @Html.DisplayFor(model => model.DeptName)
                 </dd>
 
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Back to List", "DepartmentList")
+                </p>
             </dl>
             <div>
                 @{
@@ -60,25 +60,3 @@
     </div>
     <!-- /.card -->
 </section>
-
-
-@*<h2>Details</h2>
-
-<div class="content">
-    <h4>DepartmentModels</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DeptName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DeptName)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@
