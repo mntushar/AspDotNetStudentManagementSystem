@@ -57,7 +57,6 @@ namespace StudentManagementSystem.Controllers
 
         // POST: Student/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,DateOfBirth,DeptId")] StudentModel student)
@@ -66,7 +65,7 @@ namespace StudentManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 DepartmentModels department = db.Department.Find(student.DeptId);
-                if(department != null)
+                if (department != null)
                 {
                     db.Student.Add(student);
                     db.SaveChanges();
@@ -96,7 +95,6 @@ namespace StudentManagementSystem.Controllers
 
         // POST: Student/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,DateOfBirth,DeptId")] StudentModel student)
@@ -105,7 +103,7 @@ namespace StudentManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 DepartmentModels department = db.Department.Find(student.DeptId);
-                if(student != null)
+                if (student != null)
                 {
                     db.Entry(student).State = EntityState.Modified;
                     db.SaveChanges();
