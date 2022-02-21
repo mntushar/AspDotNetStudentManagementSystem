@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Models.ModelContext;
 
@@ -55,35 +54,47 @@ namespace StudentManagementSystem.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentId,CourseId,EnrollDate,IsPaymentComplete")] StudentRegistrationModels studentRegistrationModels)
+        public ActionResult Create([Bind(Include = "StudentId,CourseId,IsPaymentComplete")] StudentRegistrationModels studentRegistration)
         {
             if (ModelState.IsValid)
             {
-                db.StudentRegistration.Add(studentRegistrationModels);
-                db.SaveChanges();
-                return RedirectToAction("RegList");
+                StudentRegistrationModels exitReg = db.StudentRegistration.Find(studentRegistration.StudentId);
+                if (exitReg == null)
+                {
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        db.StudentRegistration.Add(studentRegistration);
+                        db.Database.ExecuteSqlCommand("SET IDENTITY_INSERT StudentRegistrationModels ON;");
+                        db.SaveChanges();
+                        db.Database.ExecuteSqlCommand("SET IDENTITY_INSERT StudentRegistrationModels OFF");
+                        transaction.Commit();
+                    }
+                    return RedirectToAction("RegList");
+                }
+                ModelState.AddModelError(nameof(studentRegistration.StudentId), "Student alredy registered");
+                
             }
 
-            ViewBag.CourseId = new SelectList(db.Course, "Id", "Title", studentRegistrationModels.CourseId);
-            ViewBag.StudentId = new SelectList(db.Student, "Id", "Name", studentRegistrationModels.StudentId);
-            return View(studentRegistrationModels);
+            ViewBag.CourseId = new SelectList(db.Course, "Id", "Title");
+            ViewBag.StudentId = new SelectList(db.Student, "Id", "Name");
+            return View(studentRegistration);
         }
 
         // GET: StudentRegistration/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? StudentId)
         {
-            if (id == null)
+            if (StudentId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StudentRegistrationModels studentRegistrationModels = db.StudentRegistration.Find(id);
-            if (studentRegistrationModels == null)
+            StudentRegistrationModels studentRegistration = db.StudentRegistration.Find(StudentId);
+            if (studentRegistration == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CourseId = new SelectList(db.Course, "Id", "Title", studentRegistrationModels.CourseId);
-            ViewBag.StudentId = new SelectList(db.Student, "Id", "Name", studentRegistrationModels.StudentId);
-            return View(studentRegistrationModels);
+            ViewBag.CourseId = new SelectList(db.Course, "Id", "Title");
+            ViewBag.StudentId = new SelectList(db.Student, "Id", "Name");
+            return View(studentRegistration);
         }
 
         // POST: StudentRegistration/Edit/5
@@ -136,9 +147,8 @@ namespace StudentManagementSystem.Controllers
                 StudentModel student = db.Student.Find(id);
                 if (student != null)
                 {
-                    var data = new {dept=student.Department.DeptName, id=student.DeptId };
-                    string json = JsonConvert.SerializeObject(student, Formatting.Indented);
-                    return Json(json, JsonRequestBehavior.AllowGet);
+                    var data = new { dept=student.Department.DeptName, id=student.DeptId };
+                    return Json(data, JsonRequestBehavior.AllowGet);
                 }
             }
 
