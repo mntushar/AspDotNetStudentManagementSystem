@@ -1,4 +1,4 @@
-﻿@model StudentManagementSystem.Models.DepartmentModels
+﻿@model StudentManagementSystem.Models.CourseModels
 
 @{
     ViewBag.Title = ViewBag.title;
@@ -21,20 +21,45 @@
             </div>
         </div>
         <div class="card-body">
-            <dl class="dl-horizontal text-center">
-                <dt>
-                    @Html.DisplayNameFor(model => model.DeptName)
-                </dt>
+            <div class="row">
+                <div class="col-4 m-auto">
+                    <div>
+                        <span class="font-weight-bold">
+                            @Html.DisplayNameFor(model => model.Title):
+                        </span>
 
-                <dd>
-                    @Html.DisplayFor(model => model.DeptName)
-                </dd>
+                        @Html.DisplayFor(model => model.Title)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 m-auto">
+                    <div>
+                        <span class="font-weight-bold">
+                            @Html.DisplayNameFor(model => model.SeatCount):
+                        </span>
 
-                <p>
+                        @Html.DisplayFor(model => model.SeatCount)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 m-auto">
+                    <div>
+                        <span class="font-weight-bold">
+                            @Html.DisplayNameFor(model => model.Fee):
+                        </span>
+
+                        @Html.DisplayFor(model => model.Fee)
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <p class="col-4 m-auto">
                     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-                    @Html.ActionLink("Back to List", "DepartmentList")
+                    @Html.ActionLink("Back to List", "CourseList")
                 </p>
-            </dl>
+            </div>
             <div>
                 @{
                     if (ViewContext.RouteData.GetRequiredString("action") == "Delete")
