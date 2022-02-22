@@ -10,8 +10,8 @@
     <!-- modernizr -->
     @Scripts.Render("~/bundles/modernizr")
 
-    <!--Admin css-->
-    @Styles.Render("~/Content/admin/css")
+    <!--Style css-->
+    @RenderSection("style", required: false)
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -19,14 +19,13 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
 
-    
+
 </head>
 <body>
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Content/admin/js")
     @RenderSection("scripts", required: false)
 </body>
 </html>
