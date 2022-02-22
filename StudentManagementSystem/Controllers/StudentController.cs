@@ -14,6 +14,7 @@ namespace StudentManagementSystem.Controllers
     public class StudentController : Controller
     {
         private UniversityDBContext db = new UniversityDBContext();
+        private string CustomDataSaveError = new ErrorController().DataSaveCustomError();
 
         public StudentController()
         {
@@ -67,9 +68,17 @@ namespace StudentManagementSystem.Controllers
                 DepartmentModels department = db.Department.Find(student.DeptId);
                 if (department != null)
                 {
-                    db.Student.Add(student);
-                    db.SaveChanges();
-                    return RedirectToAction("StudentList");
+                    try
+                    {
+                        db.Student.Add(student);
+                        db.SaveChanges();
+                        return RedirectToAction("StudentList");
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("customerror", CustomDataSaveError);
+                    }
+                    
                 }
                 ModelState.AddModelError(nameof(StudentModel.DeptId), "Please select department");
             }
@@ -103,11 +112,18 @@ namespace StudentManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 DepartmentModels department = db.Department.Find(student.DeptId);
-                if (student != null)
+                if (department != null)
                 {
-                    db.Entry(student).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("StudentList");
+                    try
+                    {
+                        db.Entry(student).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("StudentList");
+                    }
+                    catch(Exception ex)
+                    {
+                        ModelState.AddModelError("customerror", CustomDataSaveError);
+                    }  
                 }
                 ModelState.AddModelError(nameof(StudentModel.DeptId), "Please selsect department");
             }
@@ -132,12 +148,27 @@ namespace StudentManagementSystem.Controllers
         // POST: Student/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
-            StudentModel studentModel = db.Student.Find(id);
-            db.Student.Remove(studentModel);
-            db.SaveChanges();
-            return RedirectToAction("StudentList");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            StudentModel student = db.Student.Find(id);
+            if(student != null)
+            {
+                try
+                {
+                    db.Student.Remove(student);
+                    db.SaveChanges();
+                    return RedirectToAction("StudentList");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("customerror", CustomDataSaveError);
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         protected override void Dispose(bool disposing)

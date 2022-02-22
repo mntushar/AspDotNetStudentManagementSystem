@@ -191,7 +191,7 @@ namespace StudentManagementSystem.Controllers
                     ModelState.AddModelError("customerror", CustomDataSaveError);
                 }
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            return View("Details");
         }
 
         public ActionResult GetStudent(int? id)
