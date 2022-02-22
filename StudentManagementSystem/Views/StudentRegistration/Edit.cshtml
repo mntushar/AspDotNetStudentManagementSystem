@@ -5,52 +5,62 @@
     Layout = "~/Views/Shared/AdminShared/_AdminLayout.cshtml";
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>StudentRegistrationModels</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.StudentId)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CourseId, "CourseId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CourseId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
-            </div>
+<div class="content">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">@ViewBag.title Form</h3>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EnrollDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EnrollDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EnrollDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsPaymentComplete, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsPaymentComplete)
-                    @Html.ValidationMessageFor(model => model.IsPaymentComplete, "", new { @class = "text-danger" })
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form class="form-horizontal" method="post">
+            @Html.AntiForgeryToken()
+            <div class="card-body">
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Student, new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        <fieldset disabled>
+                            @Html.EditorFor(model => model.Student.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Student.Department, new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        <fieldset disabled>
+                            @Html.EditorFor(model => model.Student.Department.DeptName, new { htmlAttributes = new { @class = "form-control" } })
+                        </fieldset>        
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Course, new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(model => model.CourseId, (IEnumerable<SelectListItem>)ViewBag.Course, "--Select course--", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.IsPaymentComplete, new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.CheckBoxFor(model => model.IsPaymentComplete)
+                        @Html.ValidationMessageFor(model => model.IsPaymentComplete, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <p class='text-center text-danger'>@Html.ValidationMessage("customerror")</p>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button type="submit" class="btn btn-info">Submit</button>
+                @Html.ActionLink("Back to List", "RegList", "StudentRegistration", new { @class = "float-right" })
             </div>
-        </div>
+            <!-- /.card-footer -->
+        </form>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+
+@section adminscripts
+{
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+}

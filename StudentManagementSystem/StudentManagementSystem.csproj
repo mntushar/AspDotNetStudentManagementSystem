@@ -172,9 +172,11 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentRegistrationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2528,6 +2530,9 @@
     <Content Include="Views\Course\Create.cshtml" />
     <Content Include="Views\Course\Details.cshtml" />
     <Content Include="Views\Course\CourseList.cshtml" />
+    <Content Include="Views\StudentRegistration\Create.cshtml" />
+    <Content Include="Views\StudentRegistration\Edit.cshtml" />
+    <Content Include="Views\StudentRegistration\RegList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -22,13 +22,12 @@
                         @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                @*<div class="form-group row">
-                        @Html.LabelFor(model => model.DateOfBirth, new { @class = "col-sm-2 col-form-label" })
-                        <div class="col-sm-10">
-                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
-                        </div>
-                    </div>*@
+                <div class="form-group row">
+                    <label style="display: none" id="DeparmentLabel" for="DeparmentId" class="col-sm-2 col-form-label">Department</label>
+                    <div class="col-sm-10">
+                        <input type="hidden" class="form-control" id="DeparmentId" name="Deparment" disabled>
+                    </div>
+                </div>
                 <div class="form-group row">
                     @Html.LabelFor(model => model.Course, new { @class = "col-sm-2 col-form-label" })
                     <div class="col-sm-10">
@@ -36,13 +35,13 @@
                         @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                @*<div class="form-group row">
-                        @Html.LabelFor(model => model.DeptId, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-                        <div class="col-sm-10">
-                            @Html.DropDownListFor(model => model.DeptId, (IEnumerable<SelectListItem>)ViewBag.departments, "--Select Department--", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.DeptId, "", new { @class = "text-danger" })
-                        </div>
-                    </div>*@
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.IsPaymentComplete, new { @class = "d-none", id = "IsPaymentCompletelabel"})
+                    <div class="col-sm-10">
+                        @Html.CheckBoxFor(model => model.IsPaymentComplete, new { @class = "d-none" })
+                        @Html.ValidationMessageFor(model => model.IsPaymentComplete, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
@@ -60,15 +59,39 @@
 {
     <script>
         var student = document.getElementById("StudentId");
-        student.addEventListener("change", function (studnt) {
-            if (!!student.value) {
+        var course = document.getElementById("CourseId");
+        var mainUrl = document.location.origin;
 
-                console.log(student.value);
+        student.addEventListener("change", function () {
+            var studentId = student.value;
+            if (!!studentId) {
+                var url = mainUrl + "/StudentRegistration/GetStudent/" + studentId;
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        let dept = document.getElementById("DeparmentId");
+                        dept.value = data["dept"];
+                        dept.type = "text";
+                        document.getElementById("DeparmentLabel").style.display = 'block';
+                    });
             }
-            //console.log(student.value);
+            else {
+                document.getElementById("DeparmentId").type = "hidden";
+                document.getElementById("DeparmentLabel").style.display = 'none';
+            }
         });
-        
-   
+
+        course.addEventListener("change", function () {
+            var courseId = course.value;
+            if (!!courseId) {
+                document.getElementById("IsPaymentComplete").className = "d-block";
+                document.getElementById("IsPaymentCompletelabel").className = "col-sm-2 col-form-label d-block";
+            }
+            else {
+                document.getElementById("IsPaymentComplete").className  = "d-none";
+                document.getElementById("IsPaymentCompletelabel").className  = "d-none";
+            }
+        });
     </script>
 
     <script src="~/Scripts/jquery.validate.js"></script>
