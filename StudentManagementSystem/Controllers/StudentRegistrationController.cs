@@ -8,19 +8,22 @@ using System.Web;
 using System.Web.Mvc;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Models.ModelContext;
+using StudentManagementSystem.Controllers;
 
 namespace StudentManagementSystem.Controllers
 {
     public class StudentRegistrationController : Controller
     {
         private UniversityDBContext db = new UniversityDBContext();
+        private string CustomDataSaveError = new ErrorController().DataSaveCustomError();
 
         public StudentRegistrationController()
         {
             ViewBag.title = "Student Registration";
         }
 
-        // GET: StudentRegistration
+
+        // GET: StudentRegistration list
         public ActionResult RegList()
         {
             var studentRegistration = db.StudentRegistration.Include(s => s.Course).Include(s => s.Student);
@@ -28,13 +31,13 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: StudentRegistration/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? StudentId)
         {
-            if (id == null)
+            if (StudentId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StudentRegistrationModels studentRegistrationModels = db.StudentRegistration.Find(id);
+            StudentRegistrationModels studentRegistrationModels = db.StudentRegistration.Find(StudentId);
             if (studentRegistrationModels == null)
             {
                 return HttpNotFound();
@@ -61,6 +64,7 @@ namespace StudentManagementSystem.Controllers
                 StudentRegistrationModels exitReg = db.StudentRegistration.Find(studentRegistration.StudentId);
                 if (exitReg == null)
                 {
+                    studentRegistration.EnrollDate = DateTime.UtcNow;
                     using (var transaction = db.Database.BeginTransaction())
                     {
                         db.StudentRegistration.Add(studentRegistration);
@@ -72,7 +76,6 @@ namespace StudentManagementSystem.Controllers
                     return RedirectToAction("RegList");
                 }
                 ModelState.AddModelError(nameof(studentRegistration.StudentId), "Student alredy registered");
-                
             }
 
             ViewBag.CourseId = new SelectList(db.Course, "Id", "Title");
@@ -101,27 +104,40 @@ namespace StudentManagementSystem.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StudentId,CourseId,EnrollDate,IsPaymentComplete")] StudentRegistrationModels studentRegistrationModels)
+        public ActionResult Edit([Bind(Include = "StudentId, CourseId,IsPaymentComplete")] StudentRegistrationModels studentRegistration)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(studentRegistrationModels).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("RegList");
+                StudentRegistrationModels exitReg = db.StudentRegistration.Find(studentRegistration.StudentId);
+                if(exitReg != null)
+                {
+                    studentRegistration.EnrollDate = exitReg.EnrollDate;
+                    try
+                    {
+                        db.Entry(exitReg).CurrentValues.SetValues(studentRegistration);
+                        db.SaveChanges();
+                        return RedirectToAction("RegList");
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("customerror", CustomDataSaveError);
+                    }
+                }
+                ModelState.AddModelError(nameof(studentRegistration.StudentId), "Enter worng student");
             }
-            ViewBag.CourseId = new SelectList(db.Course, "Id", "Title", studentRegistrationModels.CourseId);
-            ViewBag.StudentId = new SelectList(db.Student, "Id", "Name", studentRegistrationModels.StudentId);
-            return View("Create", studentRegistrationModels);
+            ViewBag.CourseId = new SelectList(db.Course, "Id", "Title");
+            ViewBag.StudentId = new SelectList(db.Student, "Id", "Name");
+            return View(studentRegistration);
         }
 
         // GET: StudentRegistration/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? StudentId)
         {
-            if (id == null)
+            if (StudentId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StudentRegistrationModels studentRegistrationModels = db.StudentRegistration.Find(id);
+            StudentRegistrationModels studentRegistrationModels = db.StudentRegistration.Find(StudentId);
             if (studentRegistrationModels == null)
             {
                 return HttpNotFound();
@@ -132,10 +148,10 @@ namespace StudentManagementSystem.Controllers
         // POST: StudentRegistration/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? StudentId)
         {
-            StudentRegistrationModels studentRegistrationModels = db.StudentRegistration.Find(id);
-            db.StudentRegistration.Remove(studentRegistrationModels);
+            StudentRegistrationModels studentRegistration = db.StudentRegistration.Find(StudentId);
+            db.StudentRegistration.Remove(studentRegistration);
             db.SaveChanges();
             return RedirectToAction("RegList");
         }

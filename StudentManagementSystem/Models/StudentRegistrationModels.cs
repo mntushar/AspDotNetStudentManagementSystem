@@ -9,14 +9,13 @@ namespace StudentManagementSystem.Models
 {
     public class StudentRegistrationModels
     {
-        [Key, ForeignKey("Student")]
+        [Key, ForeignKey("Student"), Required]
         public int StudentId { get; set; }
 
-        [Required]
-        [ForeignKey("Course")]
+        [ForeignKey("Course"), Required]
         public int CourseId { get; set; }
 
-        [Required]
+        [Display(Name ="Payment Status")]
         public DateTime EnrollDate { get; set; }
         public bool IsPaymentComplete { get; set; }
 
