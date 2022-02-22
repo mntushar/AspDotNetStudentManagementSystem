@@ -14,6 +14,7 @@ namespace StudentManagementSystem.Controllers
     public class DepartmentController : Controller
     {
         private UniversityDBContext db = new UniversityDBContext();
+        private string CustomDataSaveError = new ErrorController().DataSaveCustomError();
 
         public DepartmentController()
         {
@@ -56,9 +57,16 @@ namespace StudentManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Department.Add(department);
-                db.SaveChanges();
-                return RedirectToAction("DepartmentList");
+                try
+                {
+                    db.Department.Add(department);
+                    db.SaveChanges();
+                    return RedirectToAction("DepartmentList");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("customerror", CustomDataSaveError);
+                }
             }
 
             return View(department);
@@ -88,9 +96,16 @@ namespace StudentManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(department).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("DepartmentList");
+                try
+                {
+                    db.Entry(department).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("DepartmentList");
+                }
+                catch(Exception ex)
+                {
+                    ModelState.AddModelError("customerror", CustomDataSaveError);
+                }
             }
             return View("Create", department);
         }
@@ -113,12 +128,28 @@ namespace StudentManagementSystem.Controllers
         // POST: DepartmentModels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             DepartmentModels department = db.Department.Find(id);
-            db.Department.Remove(department);
-            db.SaveChanges();
-            return RedirectToAction("DepartmentList");
+            if(department != null)
+            {
+                try
+                {
+                    db.Department.Remove(department);
+                    db.SaveChanges();
+                    return RedirectToAction("DepartmentList");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("customerror", CustomDataSaveError);
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
         }
 
         protected override void Dispose(bool disposing)
