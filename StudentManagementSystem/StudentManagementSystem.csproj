@@ -2533,6 +2533,7 @@
     <Content Include="Views\StudentRegistration\Create.cshtml" />
     <Content Include="Views\StudentRegistration\Edit.cshtml" />
     <Content Include="Views\StudentRegistration\RegList.cshtml" />
+    <Content Include="Views\StudentRegistration\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

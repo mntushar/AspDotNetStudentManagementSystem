@@ -9,7 +9,7 @@ namespace StudentManagementSystem.Controllers
     {
         public string DataSaveCustomError()
         {
-            return "You enter worng information..";
+            return "Please enter correct information..";
         }
     }
 }

@@ -65,17 +65,32 @@ namespace StudentManagementSystem.Controllers
                 if (exitReg == null)
                 {
                     studentRegistration.EnrollDate = DateTime.UtcNow;
-                    using (var transaction = db.Database.BeginTransaction())
+                    CourseModels exitCourse = db.Course.Find(studentRegistration.CourseId);
+                    if(exitCourse != null)
                     {
-                        db.StudentRegistration.Add(studentRegistration);
-                        db.Database.ExecuteSqlCommand("SET IDENTITY_INSERT StudentRegistrationModels ON;");
-                        db.SaveChanges();
-                        db.Database.ExecuteSqlCommand("SET IDENTITY_INSERT StudentRegistrationModels OFF");
-                        transaction.Commit();
+                        try
+                        {
+                            using (var transaction = db.Database.BeginTransaction())
+                            {
+                                db.StudentRegistration.Add(studentRegistration);
+                                db.Database.ExecuteSqlCommand("SET IDENTITY_INSERT StudentRegistrationModels ON;");
+                                db.SaveChanges();
+                                db.Database.ExecuteSqlCommand("SET IDENTITY_INSERT StudentRegistrationModels OFF");
+                                transaction.Commit();
+                            }
+                            return RedirectToAction("RegList");
+                        }
+                        catch (Exception ex)
+                        {
+                            ModelState.AddModelError("customerror", CustomDataSaveError);
+                        }
                     }
-                    return RedirectToAction("RegList");
+                    ModelState.AddModelError(nameof(studentRegistration.CourseId), "Select correct course..");
                 }
-                ModelState.AddModelError(nameof(studentRegistration.StudentId), "Student alredy registered");
+                else
+                {
+                    ModelState.AddModelError(nameof(studentRegistration.StudentId), "Student alredy registered");
+                }
             }
 
             ViewBag.CourseId = new SelectList(db.Course, "Id", "Title");
@@ -112,18 +127,26 @@ namespace StudentManagementSystem.Controllers
                 if(exitReg != null)
                 {
                     studentRegistration.EnrollDate = exitReg.EnrollDate;
-                    try
+                    CourseModels exitCourse = db.Course.Find(studentRegistration.CourseId);
+                    if(exitCourse != null)
                     {
-                        db.Entry(exitReg).CurrentValues.SetValues(studentRegistration);
-                        db.SaveChanges();
-                        return RedirectToAction("RegList");
+                        try
+                        {
+                            db.Entry(exitReg).CurrentValues.SetValues(studentRegistration);
+                            db.SaveChanges();
+                            return RedirectToAction("RegList");
+                        }
+                        catch (Exception ex)
+                        {
+                            ModelState.AddModelError("customerror", CustomDataSaveError);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        ModelState.AddModelError("customerror", CustomDataSaveError);
-                    }
+                    ModelState.AddModelError(nameof(studentRegistration.CourseId), "Select correct course..");
                 }
-                ModelState.AddModelError(nameof(studentRegistration.StudentId), "Enter worng student");
+                else
+                {
+                    ModelState.AddModelError(nameof(studentRegistration.StudentId), "Enter correct student");
+                } 
             }
             ViewBag.CourseId = new SelectList(db.Course, "Id", "Title");
             ViewBag.StudentId = new SelectList(db.Student, "Id", "Name");
@@ -150,10 +173,25 @@ namespace StudentManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? StudentId)
         {
+            if(StudentId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             StudentRegistrationModels studentRegistration = db.StudentRegistration.Find(StudentId);
-            db.StudentRegistration.Remove(studentRegistration);
-            db.SaveChanges();
-            return RedirectToAction("RegList");
+            if(studentRegistration != null)
+            {
+                try 
+                {
+                    db.StudentRegistration.Remove(studentRegistration);
+                    db.SaveChanges();
+                    return RedirectToAction("RegList");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("customerror", CustomDataSaveError);
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         public ActionResult GetStudent(int? id)
