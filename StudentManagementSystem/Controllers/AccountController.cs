@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using StudentManagementSystem.Models;
+using StudentManagementSystem.Models.ModelContext;
 
 namespace StudentManagementSystem.Controllers
 {
