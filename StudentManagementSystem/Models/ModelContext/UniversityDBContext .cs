@@ -4,10 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Web;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Web;
-using System.Data.Entity;
 
 namespace StudentManagementSystem.Models.ModelContext
 {
