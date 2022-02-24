@@ -208,6 +208,10 @@
     <Compile Include="Migrations\202202201833230_relStdentReg.designer.cs">
       <DependentUpon>202202201833230_relStdentReg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202241403133_authenticationtable.cs" />
+    <Compile Include="Migrations\202202241403133_authenticationtable.designer.cs">
+      <DependentUpon>202202241403133_authenticationtable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CourseModels.cs" />
@@ -2563,6 +2567,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202201833230_relStdentReg.resx">
       <DependentUpon>202202201833230_relStdentReg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202241403133_authenticationtable.resx">
+      <DependentUpon>202202241403133_authenticationtable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
