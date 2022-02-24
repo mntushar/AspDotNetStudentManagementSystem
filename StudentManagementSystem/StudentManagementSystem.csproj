@@ -180,37 +180,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202202201823441_addDeptModel.cs" />
-    <Compile Include="Migrations\202202201823441_addDeptModel.designer.cs">
-      <DependentUpon>202202201823441_addDeptModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202201825254_addStudentModel.cs" />
-    <Compile Include="Migrations\202202201825254_addStudentModel.designer.cs">
-      <DependentUpon>202202201825254_addStudentModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202201826390_relationStudenAndDept.cs" />
-    <Compile Include="Migrations\202202201826390_relationStudenAndDept.designer.cs">
-      <DependentUpon>202202201826390_relationStudenAndDept.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202201828075_addCourseModel.cs" />
-    <Compile Include="Migrations\202202201828075_addCourseModel.designer.cs">
-      <DependentUpon>202202201828075_addCourseModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202201829467_addRegistationModel.cs" />
-    <Compile Include="Migrations\202202201829467_addRegistationModel.designer.cs">
-      <DependentUpon>202202201829467_addRegistationModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202201831078_relCourseReg.cs" />
-    <Compile Include="Migrations\202202201831078_relCourseReg.designer.cs">
-      <DependentUpon>202202201831078_relCourseReg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202201833230_relStdentReg.cs" />
-    <Compile Include="Migrations\202202201833230_relStdentReg.designer.cs">
-      <DependentUpon>202202201833230_relStdentReg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202241403133_authenticationtable.cs" />
-    <Compile Include="Migrations\202202241403133_authenticationtable.designer.cs">
-      <DependentUpon>202202241403133_authenticationtable.cs</DependentUpon>
+    <Compile Include="Migrations\202202241619552_migrationWithAuth.cs" />
+    <Compile Include="Migrations\202202241619552_migrationWithAuth.designer.cs">
+      <DependentUpon>202202241619552_migrationWithAuth.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -2547,29 +2519,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202202201823441_addDeptModel.resx">
-      <DependentUpon>202202201823441_addDeptModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202201825254_addStudentModel.resx">
-      <DependentUpon>202202201825254_addStudentModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202201826390_relationStudenAndDept.resx">
-      <DependentUpon>202202201826390_relationStudenAndDept.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202201828075_addCourseModel.resx">
-      <DependentUpon>202202201828075_addCourseModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202201829467_addRegistationModel.resx">
-      <DependentUpon>202202201829467_addRegistationModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202201831078_relCourseReg.resx">
-      <DependentUpon>202202201831078_relCourseReg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202201833230_relStdentReg.resx">
-      <DependentUpon>202202201833230_relStdentReg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202241403133_authenticationtable.resx">
-      <DependentUpon>202202241403133_authenticationtable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202241619552_migrationWithAuth.resx">
+      <DependentUpon>202202241619552_migrationWithAuth.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class authenticationtable : DbMigration
+    public partial class migrationWithAuth : DbMigration
     {
         public override void Up()
         {

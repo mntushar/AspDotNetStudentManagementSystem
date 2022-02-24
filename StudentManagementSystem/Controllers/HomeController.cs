@@ -13,7 +13,7 @@ namespace StudentManagementSystem.Controllers
             return View();
         }
 
-        [Authorize]
+        //[Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
