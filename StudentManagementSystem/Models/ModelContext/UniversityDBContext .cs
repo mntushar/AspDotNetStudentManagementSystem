@@ -14,7 +14,7 @@ namespace StudentManagementSystem.Models.ModelContext
     public class UniversityDBContext : IdentityDbContext<ApplicationUser>
     {
         public UniversityDBContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("UniversityDBContext", throwIfV1Schema: false)
         {
         }
 

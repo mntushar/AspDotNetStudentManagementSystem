@@ -180,9 +180,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202202241619552_migrationWithAuth.cs" />
-    <Compile Include="Migrations\202202241619552_migrationWithAuth.designer.cs">
-      <DependentUpon>202202241619552_migrationWithAuth.cs</DependentUpon>
+    <Compile Include="Migrations\202202241729059_migrationWihAuten.cs" />
+    <Compile Include="Migrations\202202241729059_migrationWihAuten.designer.cs">
+      <DependentUpon>202202241729059_migrationWihAuten.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -2519,8 +2519,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202202241619552_migrationWithAuth.resx">
-      <DependentUpon>202202241619552_migrationWithAuth.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202241729059_migrationWihAuten.resx">
+      <DependentUpon>202202241729059_migrationWihAuten.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

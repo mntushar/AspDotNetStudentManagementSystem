@@ -3,10 +3,58 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class migrationWithAuth : DbMigration
+    public partial class migrationWihAuten : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.CourseModels",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(nullable: false),
+                        SeatCount = c.Int(nullable: false),
+                        Fee = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.StudentRegistrationModels",
+                c => new
+                    {
+                        StudentId = c.Int(nullable: false),
+                        CourseId = c.Int(nullable: false),
+                        EnrollDate = c.DateTime(nullable: false),
+                        IsPaymentComplete = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.StudentId)
+                .ForeignKey("dbo.CourseModels", t => t.CourseId, cascadeDelete: true)
+                .ForeignKey("dbo.StudentModels", t => t.StudentId)
+                .Index(t => t.StudentId)
+                .Index(t => t.CourseId);
+            
+            CreateTable(
+                "dbo.StudentModels",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                        DateOfBirth = c.DateTime(nullable: false),
+                        DeptId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.DepartmentModels", t => t.DeptId, cascadeDelete: true)
+                .Index(t => t.DeptId);
+            
+            CreateTable(
+                "dbo.DepartmentModels",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        DeptName = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.AspNetRoles",
                 c => new
@@ -83,17 +131,27 @@
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.StudentRegistrationModels", "StudentId", "dbo.StudentModels");
+            DropForeignKey("dbo.StudentModels", "DeptId", "dbo.DepartmentModels");
+            DropForeignKey("dbo.StudentRegistrationModels", "CourseId", "dbo.CourseModels");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.StudentModels", new[] { "DeptId" });
+            DropIndex("dbo.StudentRegistrationModels", new[] { "CourseId" });
+            DropIndex("dbo.StudentRegistrationModels", new[] { "StudentId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.DepartmentModels");
+            DropTable("dbo.StudentModels");
+            DropTable("dbo.StudentRegistrationModels");
+            DropTable("dbo.CourseModels");
         }
     }
 }
