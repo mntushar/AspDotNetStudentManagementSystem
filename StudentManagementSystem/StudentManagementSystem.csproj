@@ -213,7 +213,6 @@
     <Compile Include="Models\CourseModels.cs" />
     <Compile Include="Models\DepartmentModels.cs" />
     <Compile Include="Models\ModelContext\UniversityDBContext .cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Models\StudentRegistrationModels.cs" />
