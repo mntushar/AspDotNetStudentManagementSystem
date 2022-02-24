@@ -27,6 +27,18 @@ namespace StudentManagementSystem.Models.ModelContext
         {
             return new UniversityDBContext();
         }
+
+        //rename aspNet clome name
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder); // This needs to go before the other rules!
+
+            modelBuilder.Entity<ApplicationUser>().ToTable("User");
+            modelBuilder.Entity<IdentityRole>().ToTable("Role");
+            modelBuilder.Entity<IdentityUserRole>().ToTable("UserRole");
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaim");
+            modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogin");
+        }
     }
 
     public class EmailService : IIdentityMessageService

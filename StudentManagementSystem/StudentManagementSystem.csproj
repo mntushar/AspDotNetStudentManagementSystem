@@ -184,6 +184,10 @@
     <Compile Include="Migrations\202202241729059_migrationWihAuten.designer.cs">
       <DependentUpon>202202241729059_migrationWihAuten.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202241746525_renameAspTableName.cs" />
+    <Compile Include="Migrations\202202241746525_renameAspTableName.designer.cs">
+      <DependentUpon>202202241746525_renameAspTableName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CourseModels.cs" />
@@ -2521,6 +2525,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202202241729059_migrationWihAuten.resx">
       <DependentUpon>202202241729059_migrationWihAuten.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202241746525_renameAspTableName.resx">
+      <DependentUpon>202202241746525_renameAspTableName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
