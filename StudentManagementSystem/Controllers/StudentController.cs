@@ -11,6 +11,7 @@ using StudentManagementSystem.Models.ModelContext;
 
 namespace StudentManagementSystem.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private UniversityDBContext db = new UniversityDBContext();

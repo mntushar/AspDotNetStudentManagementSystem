@@ -12,6 +12,7 @@ using StudentManagementSystem.Controllers;
 
 namespace StudentManagementSystem.Controllers
 {
+    [Authorize]
     public class StudentRegistrationController : Controller
     {
         private UniversityDBContext db = new UniversityDBContext();
@@ -66,7 +67,8 @@ namespace StudentManagementSystem.Controllers
                 {
                     studentRegistration.EnrollDate = DateTime.UtcNow;
                     CourseModels exitCourse = db.Course.Find(studentRegistration.CourseId);
-                    if(exitCourse != null)
+                    //var countTotalStudent = db.StudentRegistration.Where(c => c.CourseId == studentRegistration.CourseId).Count();
+                    if (exitCourse != null)
                     {
                         try
                         {
@@ -85,7 +87,10 @@ namespace StudentManagementSystem.Controllers
                             ModelState.AddModelError("customerror", CustomDataSaveError);
                         }
                     }
-                    ModelState.AddModelError(nameof(studentRegistration.CourseId), "Select correct course..");
+                    else
+                    {
+                        ModelState.AddModelError(nameof(studentRegistration.CourseId), "Select correct course..");
+                    }   
                 }
                 else
                 {
