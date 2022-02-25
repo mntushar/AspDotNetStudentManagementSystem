@@ -27,7 +27,7 @@ namespace StudentManagementSystem.Controllers
         // GET: StudentRegistration list
         public ActionResult RegList()
         {
-            var studentRegistration = db.StudentRegistration.Include(s => s.Course).Include(s => s.Student);
+            var studentRegistration = db.StudentRegistration.Include(s => s.Student);
             return View(studentRegistration.ToList());
         }
 
@@ -67,30 +67,33 @@ namespace StudentManagementSystem.Controllers
                 {
                     studentRegistration.EnrollDate = DateTime.UtcNow;
                     CourseModels exitCourse = db.Course.Find(studentRegistration.CourseId);
-                    //var countTotalStudent = db.StudentRegistration.Where(c => c.CourseId == studentRegistration.CourseId).Count();
+                    var TotalStudent = db.StudentRegistration.Where(c => c.CourseId == studentRegistration.CourseId).Count();
                     if (exitCourse != null)
                     {
-                        try
+                        if (TotalStudent < exitCourse.SeatCount)
                         {
-                            using (var transaction = db.Database.BeginTransaction())
+                            try
                             {
                                 db.StudentRegistration.Add(studentRegistration);
-                                db.Database.ExecuteSqlCommand("SET IDENTITY_INSERT StudentRegistrationModels ON;");
                                 db.SaveChanges();
-                                db.Database.ExecuteSqlCommand("SET IDENTITY_INSERT StudentRegistrationModels OFF");
-                                transaction.Commit();
+                                return RedirectToAction("RegList");
                             }
-                            return RedirectToAction("RegList");
+                            catch (Exception ex)
+                            {
+                                ModelState.AddModelError("customerror", CustomDataSaveError);
+                            }
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            ModelState.AddModelError("customerror", CustomDataSaveError);
+                            ModelState.AddModelError(nameof(studentRegistration.CourseId), "The course set is already full...");
                         }
+
+
                     }
                     else
                     {
                         ModelState.AddModelError(nameof(studentRegistration.CourseId), "Select correct course..");
-                    }   
+                    }
                 }
                 else
                 {
@@ -129,29 +132,40 @@ namespace StudentManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 StudentRegistrationModels exitReg = db.StudentRegistration.Find(studentRegistration.StudentId);
-                if(exitReg != null)
+                if (exitReg != null)
                 {
                     studentRegistration.EnrollDate = exitReg.EnrollDate;
                     CourseModels exitCourse = db.Course.Find(studentRegistration.CourseId);
-                    if(exitCourse != null)
+                    var TotalStudent = db.StudentRegistration.Where(c => c.CourseId == studentRegistration.CourseId).Count();
+                    if (exitCourse != null)
                     {
-                        try
+                        if (TotalStudent < exitCourse.SeatCount || studentRegistration.CourseId == exitReg.CourseId)
                         {
-                            db.Entry(exitReg).CurrentValues.SetValues(studentRegistration);
-                            db.SaveChanges();
-                            return RedirectToAction("RegList");
+                            try
+                            {
+                                db.Entry(exitReg).CurrentValues.SetValues(studentRegistration);
+                                db.SaveChanges();
+                                return RedirectToAction("RegList");
+                            }
+                            catch (Exception ex)
+                            {
+                                ModelState.AddModelError("customerror", CustomDataSaveError);
+                            }
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            ModelState.AddModelError("customerror", CustomDataSaveError);
+                            ModelState.AddModelError(nameof(studentRegistration.CourseId), "The course set is already full...");
                         }
                     }
-                    ModelState.AddModelError(nameof(studentRegistration.CourseId), "Select correct course..");
+                    else
+                    {
+                        ModelState.AddModelError(nameof(studentRegistration.CourseId), "Select correct course..");
+                    }
                 }
                 else
                 {
                     ModelState.AddModelError(nameof(studentRegistration.StudentId), "Enter correct student");
-                } 
+                }
             }
             ViewBag.CourseId = new SelectList(db.Course, "Id", "Title");
             ViewBag.StudentId = new SelectList(db.Student, "Id", "Name");
@@ -178,14 +192,14 @@ namespace StudentManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? StudentId)
         {
-            if(StudentId == null)
+            if (StudentId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             StudentRegistrationModels studentRegistration = db.StudentRegistration.Find(StudentId);
-            if(studentRegistration != null)
+            if (studentRegistration != null)
             {
-                try 
+                try
                 {
                     db.StudentRegistration.Remove(studentRegistration);
                     db.SaveChanges();
@@ -201,12 +215,12 @@ namespace StudentManagementSystem.Controllers
 
         public ActionResult GetStudent(int? id)
         {
-            if(id != null)
+            if (id != null)
             {
                 StudentModel student = db.Student.Find(id);
                 if (student != null)
                 {
-                    var data = new { dept=student.Department.DeptName, id=student.DeptId };
+                    var data = new { dept = student.Department.DeptName, id = student.DeptId };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
             }
