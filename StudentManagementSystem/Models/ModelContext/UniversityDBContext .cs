@@ -28,16 +28,22 @@ namespace StudentManagementSystem.Models.ModelContext
             return new UniversityDBContext();
         }
 
-        //rename aspNet clome name
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder); // This needs to go before the other rules!
 
+            //change user column name
             modelBuilder.Entity<ApplicationUser>().ToTable("User");
             modelBuilder.Entity<IdentityRole>().ToTable("Role");
             modelBuilder.Entity<IdentityUserRole>().ToTable("UserRole");
             modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaim");
             modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogin");
+
+            //cascade delete on between student and student registration
+            modelBuilder.Entity<StudentModel>()
+            .HasOptional(a => a.StudentRegistration)
+            .WithRequired(b => b.Student)
+            .WillCascadeOnDelete();
         }
     }
 
