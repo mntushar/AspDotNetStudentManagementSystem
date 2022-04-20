@@ -1,6 +1,15 @@
-# Student Management System
-■ This is a Student management system web app. Then admin can do entry department, student and course. Admin also registration students with the course.
+# University Managemant System
+■ This is a University management system web app. Then admin can do entry department, student and course. Admin also registration students with the course.
 
-■ Developed backend using ASP.Net.
+■ Back-End Technology:<br />
+- ASP.Net
+- Asp.Net Web API
 
-■ Developed front end using HTML, CSS, Bootstrap 4 and JS.
+■ Font-End Technology:<br />
+- HTML
+- CSS 
+- Bootstrap 4 
+- JS.
+
+■ Design principle:<br />
+- MVC
