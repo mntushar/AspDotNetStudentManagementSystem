@@ -6,6 +6,7 @@
 - Asp.Net Web API
 
 ■ Font-End Technology:<br />
+- Razor
 - HTML
 - CSS 
 - Bootstrap 4 
